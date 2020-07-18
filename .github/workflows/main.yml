@@ -42,4 +42,4 @@ jobs:
 
       # Deploy to surge
       - name: Deploy react app to surge
-        run: surge ./build mubashir-waapi-exercise-.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+        run: surge ./build mubashir-waapi-exercise.surge.sh --token ${{ secrets.SURGE_TOKEN }}
