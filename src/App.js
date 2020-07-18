@@ -2,49 +2,60 @@ import React from "react";
 import useWebAnimations from "@wellyshen/use-web-animations";
 import alice from "./images/sprite_running-alice-queen_small.png";
 import "./App.css";
-const sceneryFrames = [
-  { transform: "translateX(100%)" },
-  { transform: "translateX(-100%)" },
-];
 
-const sceneryTimingBackground = {
-  duration: 36000,
-  iterations: Infinity,
-};
-
-const sceneryTimingForeground = {
-  duration: 12000,
-  iterations: Infinity,
-};
 const App = () => {
   const {
     ref: foregroundOne,
     getAnimation: foreOneAnimation,
   } = useWebAnimations({
-    sceneryFrames,
-    sceneryTimingForeground,
+    keyframes: [
+      { transform: "translateX(100%)" },
+      { transform: "translateX(-100%)" },
+    ],
+    timing: {
+      duration: 12000,
+      iterations: Infinity,
+    },
   });
   const {
     ref: foregroundTwo,
     getAnimation: foreTwoAnimation,
   } = useWebAnimations({
-    sceneryFrames,
-    sceneryTimingForeground,
+    keyframes: [
+      { transform: "translateX(100%)" },
+      { transform: "translateX(-100%)" },
+    ],
+    timing: {
+      duration: 12000,
+      iterations: Infinity,
+    },
   });
 
   const {
     ref: backgroundOne,
     getAnimation: backOneAnimation,
   } = useWebAnimations({
-    sceneryFrames,
-    sceneryTimingBackground,
+    keyframes: [
+      { transform: "translateX(100%)" },
+      { transform: "translateX(-100%)" },
+    ],
+    timing: {
+      duration: 36000,
+      iterations: Infinity,
+    },
   });
   const {
     ref: backgroundTwo,
     getAnimation: backTwoAnimation,
   } = useWebAnimations({
-    sceneryFrames,
-    sceneryTimingBackground,
+    keyframes: [
+      { transform: "translateX(100%)" },
+      { transform: "translateX(-100%)" },
+    ],
+    timing: {
+      duration: 36000,
+      iterations: Infinity,
+    },
   });
 
   const { ref: aliceQueen, getAnimation: aliceAnimation } = useWebAnimations({
@@ -59,6 +70,16 @@ const App = () => {
       playbackRate: 1,
       iterations: Infinity,
     },
+    // onReady: ({ playState, animate, animation }) => {
+    //   // Triggered when the animation is ready to play (Google Chrome: available in v84+)
+    // },
+    // onUpdate: ({ playState, animate, animation }) => {
+    //   // Triggered when the animation enters the running state or changes state
+    // },
+    // onFinish: ({ playState, animate, animation }) => {
+    //   // Triggered when the animation enters the finished state (Google Chrome: available in v84+)
+    // },
+    // More useful options...
   });
   const speedup = () => {
     const animationOne = aliceAnimation();
@@ -74,7 +95,7 @@ const App = () => {
   };
   setInterval(function () {
     /* Set decay */
-    if (foreOneAnimation() && aliceAnimation().playbackRate > 0.8) {
+    if (aliceAnimation().playbackRate > 0.8) {
       aliceAnimation().playbackRate *= 0.9;
       const animationForeOne = foreOneAnimation();
       const animationForeTwo = foreTwoAnimation();
@@ -85,7 +106,7 @@ const App = () => {
       animationBackOne.updatePlaybackRate(aliceAnimation().playbackRate);
       animationBackTwo.updatePlaybackRate(aliceAnimation().playbackRate);
     }
-  }, 5000);
+  }, 3000);
   return (
     <div className="wrapper" onClick={speedup}>
       <div className="sky"></div>
